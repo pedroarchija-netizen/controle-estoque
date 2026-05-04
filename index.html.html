@@ -773,7 +773,7 @@ async function registrarMov() {
   toast('Movimentação registrada!', 'ok');
 
   // Dispara alerta por e-mail somente se o produto ficou crítico após a movimentação
-  if (novaQtd <= p.estoque_minimo && p.criticidade === 'critico') {
+  if (novaQtd <= p.estoque_minimo && p.criticidade === 'crítica') {
     fetch(`${SUPABASE_URL}/functions/v1/quick-endpoint`, {
       method: 'POST',
       headers: {
