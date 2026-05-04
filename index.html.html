@@ -771,6 +771,18 @@ async function registrarMov() {
   document.getElementById('mov-obs').value = '';
   document.getElementById('mov-estoque-info').textContent = '';
   toast('Movimentação registrada!', 'ok');
+
+  // Dispara alerta por e-mail somente se o produto ficou crítico após a movimentação
+  if (novaQtd <= p.estoque_minimo && p.criticidade === 'critico') {
+    fetch(`${SUPABASE_URL}/functions/v1/quick-endpoint`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json'
+      }
+    }).catch(() => {}); // silencia erros de rede para não travar a UI
+  }
+
   showPage('dashboard');
 }
 
